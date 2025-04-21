@@ -17,7 +17,7 @@ scaler = load_scaler()
 model  = load_model()
 
 # --- App layout ---
-st.title("CO₂ Emission Predictor 🚗💨")
+st.title("CO₂ Emission Predictor ")
 st.write("Enter the vehicle specs below and click **Predict** to see the estimated CO₂ emissions.")
 
 # --- User inputs ---
