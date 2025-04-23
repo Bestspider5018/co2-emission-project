@@ -2,7 +2,6 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# --- Load artifacts once ---
 @st.cache_resource
 def load_scaler(path: str = 'model/scaler.pkl'):
     with open(path, 'rb') as f:
@@ -16,11 +15,9 @@ def load_model(path: str = 'model/ridge_cv.pkl'):
 scaler = load_scaler()
 model  = load_model()
 
-# --- App layout ---
 st.title("CO₂ Emission Predictor ")
 st.write("Enter the vehicle specs below and click **Predict** to see the estimated CO₂ emissions.")
 
-# --- User inputs ---
 engine_size = st.number_input(
     "Engine Size (L)", min_value=0.0, max_value=10.0, value=2.5, step=0.1
 )
@@ -40,9 +37,7 @@ fuel_comb_mpg = st.number_input(
     "Fuel Consumption Comb (mpg)", min_value=5.0, max_value=100.0, value=30.0, step=0.5
 )
 
-# --- Predict button ---
 if st.button("Predict CO₂ Emissions"):
-    # Arrange features in the exact same order as training
     X = np.array([[ 
         engine_size,
         cylinders,
@@ -52,7 +47,6 @@ if st.button("Predict CO₂ Emissions"):
         fuel_comb_mpg
     ]])
     
-    # Scale and predict
     X_scaled = scaler.transform(X)
     pred = model.predict(X_scaled)
     
